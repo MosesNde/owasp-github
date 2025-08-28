@@ -1,13 +1,7 @@
-             return ERR_TAG(-err);
- 
-         opt = &opts[hash_wcs(elem.key, -1) >> 3 & 63];
-        if (opt->opt == NULL || wcscmp(elem.key, opt->opt) != 0) {
-            json_val_free(elem.value);
              return ERR_TAG(EIO);
-        }
  
-         err = (*opt->fn)(elem.value, ctx);
-        json_val_free(elem.value);
-         if (err)
-             return err;
-     }
+         str = json_string_get_value(val);
+        json_val_free(val);
+         if (str == NULL)
+             return ERR_TAG(ENOMEM);
+ 

@@ -1,6 +1,7 @@
  
-     Vect_destroy_line_struct(points);
-     Vect_destroy_cats_struct(cats);
+     points = Vect_new_line_struct();
+     points2 = Vect_new_line_struct();
+    points = Vect_new_line_struct();
+     cats = Vect_new_cats_struct();
  
-     return narcs;
- }
+     narcs = 0;
