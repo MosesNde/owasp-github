@@ -1,0 +1,4 @@
+ 			op->autolog = str;
+ 		}
+ 	}
+ }
