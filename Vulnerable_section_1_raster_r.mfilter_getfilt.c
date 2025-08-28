@@ -1,0 +1,5 @@
+     }
+ 
+     *nfilters = count;
+     return filter;
+ }
