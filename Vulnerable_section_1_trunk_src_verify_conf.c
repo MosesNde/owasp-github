@@ -1,24 +1,10 @@
-     err = json_val_object_get_elem_by_key(opt, L"uid", &elem);
-     if (!err) {
-         str = json_val_string_get(elem.value);
-         if (str == NULL)
-             return ERR_TAG(ENOMEM);
-         err = awcstombs(&buf, str, &s) == (size_t)-1 ? ERR_TAG(errno) : 0;
-         if (err)
              return ERR_TAG(-err);
-         str = json_val_string_get(elem.value);
-         if (str == NULL)
-             return ERR_TAG(ENOMEM);
-         omemset(&s, 0);
+ 
+         opt = &opts[hash_wcs(elem.key, -1) >> 3 & 63];
+        if (opt->opt == NULL || wcscmp(elem.key, opt->opt) != 0)
+             return ERR_TAG(EIO);
+ 
+         err = (*opt->fn)(elem.value, ctx);
          if (err)
-             return ERR_TAG(-err);
-         str = json_val_string_get(elem.value);
-         if (str == NULL)
-             return ERR_TAG(ENOMEM);
-         err = awcstombs(&buf, str, &s) == (size_t)-1 ? ERR_TAG(errno) : 0;
-         if (err)
-             return ERR_TAG(-err);
-         str = json_val_string_get(elem.value);
-         if (str == NULL)
-             return ERR_TAG(ENOMEM);
-         omemset(&s, 0);
+             return err;
+     }
